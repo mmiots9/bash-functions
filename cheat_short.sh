@@ -2,7 +2,6 @@
 
 addshort () {
 
-
     # chiedere quale file
     PS3='Seleziona in quale file aggiungere il comando: '
     arr=("mac" "bash" "RStudio" "VSCode" "nano")
