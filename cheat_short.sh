@@ -48,10 +48,42 @@ searchshort () {
     echo "Quale shortcut stai cercando?"
     read cosafa
 
-    # TODO 
+    # TODO valutare le parole in ordine
 
-    grep "$cosafa" "$filen" | awk -F'\t' '{print $1 " - " $2 " - " $3}'
+        # se non ci sono, allora...
+    # valutare le parole non in ordine
 
-    # TODO se non c'è nulla, rifare
+        # creare stringa col comando
+
+            # separare il comando in diverse parole
+                # creo comando prima parola
+                firstw=$(echo $cosafa | awk '{print $1}')
+                str2eval="grep \"$firstw\" \"$filen\""
+
+                # valuto se ci sono più parole
+                nwords=$(echo $cosafa | wc -w  | xargs)
+
+                if [[ "$nwords" -gt 1 ]]; then
+                    for i in {2..$nwords}
+                    do
+                        wordn=$(echo "echo $cosafa | awk '{print \$$i}'")
+                        wordn=$(eval $wordn)
+                        str2eval="$str2eval | grep \"$wordn\""
+                    done
+                fi
+
+        # eval stringa
+        res=$(eval $str2eval| awk -F'\t' '{print $1 " - " $2 " - " $3}')
+        echo $res
+
+
+    # se non c'è nulla, rifare
+    resl=$(echo $res | wc -w  | xargs)
+        if [[ "$resl" -eq 0 ]]; then
+            echo "Your research has given 0 results, retry"
+        fi
+
+    
+
 
 }
