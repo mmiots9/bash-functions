@@ -7,7 +7,7 @@ addshort () {
     arr=("mac" "bash" "RStudio" "VSCode" "nano")
     select opt in "${arr[@]}"
     do
-        filen=/Users/m.miotto/git_desk/Studio/linguaggi/cheatsheet/$opt.txt
+        filen=~/git_desk/Studio/linguaggi/cheatsheet/$opt.txt
         break
     done
 
@@ -15,7 +15,13 @@ addshort () {
     echo "Quale è la combinazione di tasti?"
     read combinazione
 
-    # TODO vedere se già presente ed eventualmente segnalarlo
+    # vedere se già presente ed eventualmente segnalarlo
+    condit=$(grep "$combinazione" "$filen" | wc -l)
+
+    if [[ "$condit" -gt 0 ]]; then
+        echo This combination is already present
+        return
+    fi
 
     echo "Cosa fa?"
     read cosafa
@@ -34,13 +40,15 @@ searchshort () {
     arr=("mac" "bash" "RStudio" "VSCode" "nano")
     select opt in "${arr[@]}"
     do
-        filen=/Users/m.miotto/git_desk/Studio/linguaggi/cheatsheet/$opt.txt
+        filen=~/git_desk/Studio/linguaggi/cheatsheet/$opt.txt
         break
     done
 
     # chiedere quale comando
     echo "Quale shortcut stai cercando?"
     read cosafa
+
+    # TODO 
 
     grep "$cosafa" "$filen" | awk -F'\t' '{print $1 " - " $2 " - " $3}'
 
