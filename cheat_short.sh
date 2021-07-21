@@ -2,88 +2,101 @@
 
 addshort () {
 
-    # chiedere quale file
-    PS3='Seleziona in quale file aggiungere il comando: '
-    arr=("mac" "bash" "RStudio" "VSCode" "nano")
+    # things to set
+    arr=() #insert the name of the file, WITHOUT THE EXTENSION
+    ext='' #set file extension
+    filepath='' #set the path for the directory into which are stored the files
+    whatdoes='' #set the string corresponding to what it does in your language
+
+    # ask which file
+    PS3='Select which file to add into: '
+    
     select opt in "${arr[@]}"
     do
-        filen=~/git_desk/Studio/linguaggi/cheatsheet/$opt.txt
+        filen=$filepath/$opt$ext
         break
     done
 
-    # chiedere quale comando, cosa fa e what it does
-    echo "Quale è la combinazione di tasti?"
-    read combinazione
+    # ask which command, what it does and what it does in your language
+    echo "Which is the shortcut command?"
+    read combination
 
-    # vedere se già presente ed eventualmente segnalarlo
-    condit=$(grep "$combinazione" "$filen" | wc -l)
+    # evaluate if already present
+    condit=$(grep "$combination" "$filen" | wc -l)
 
     if [[ "$condit" -gt 0 ]]; then
         echo This combination is already present
         return
     fi
 
-    echo "Cosa fa?"
-    read cosafa
+    # UNCOMMENT these lines if you want to add your own language explanation
+    # echo $whatdoes
+    # read whatdoeslan
 
     echo "what it does?"
     read whatdoes
 
-    # inserire combinazione nel file giusto
-    echo -e "$combinazione\t$cosafa\t$whatdoes" >> $filen
+    # insert in file
+        # UNCOMMENT this line if you add your own language explanation
+        # echo -e "$combination\t$whatdoeslan\t$whatdoes" >> $filen
+
+        # comment this line if tyou have add your own language explanation
+        echo -e "$combination\t$whatdoes" >> $filen
 }
 
 searchshort () {
 
-    # chiedere quale file
-    PS3='Seleziona in quale file aggiungere il comando: '
-    arr=("mac" "bash" "RStudio" "VSCode" "nano")
+    # things to set
+    arr=() #insert the name of the file, WITHOUT THE EXTENSION
+    ext='' #set file extension
+    filepath='' #set the path for the directory into which are stored the files
+    whatdoes='' #set the string corresponding to what it does in your language
+
+    # ask which file
+    PS3='Select which file to search into '
     select opt in "${arr[@]}"
     do
-        filen=~/git_desk/Studio/linguaggi/cheatsheet/$opt.txt
+        filen=$filepath/$opt$ext
         break
     done
 
-    # chiedere quale comando
-    echo "Quale shortcut stai cercando?"
-    read cosafa
+    # ask which command
+    echo "Which shortcut are you searching for?"
+    read whatdoes
 
-    # TODO valutare le parole in ordine
+    # evaluate searched words
 
-        # se non ci sono, allora...
-    # valutare le parole non in ordine
-
-        # creare stringa col comando
-
-            # separare il comando in diverse parole
-                # creo comando prima parola
-                firstw=$(echo $cosafa | awk '{print $1}')
+            # separate each word
+                # cfirst word
+                firstw=$(echo $whatdoes | awk '{print $1}')
                 str2eval="grep \"$firstw\" \"$filen\""
 
-                # valuto se ci sono più parole
-                nwords=$(echo $cosafa | wc -w  | xargs)
+                # evaluate if there are more words and eventually append command
+                nwords=$(echo $whatdoes | wc -w  | xargs)
 
                 if [[ "$nwords" -gt 1 ]]; then
                     for i in {2..$nwords}
                     do
-                        wordn=$(echo "echo $cosafa | awk '{print \$$i}'")
+                        wordn=$(echo "echo $whatdoes | awk '{print \$$i}'")
                         wordn=$(eval $wordn)
                         str2eval="$str2eval | grep \"$wordn\""
                     done
                 fi
 
-        # eval stringa
-        res=$(eval $str2eval| awk -F'\t' '{print $1 " - " $2 " - " $3}')
+        # eval string
+            # uncomment this line if you you add your own language explanation
+            # res=$(eval $str2eval| awk -F'\t' '{print $1 " - " $2 " - " $3}')
+
+            #comment this line if you add your own language explanation
+            res=$(eval $str2eval| awk -F'\t' '{print $1 " - " $2}')
+
         echo $res
 
 
-    # se non c'è nulla, rifare
+    # if no results
     resl=$(echo $res | wc -w  | xargs)
         if [[ "$resl" -eq 0 ]]; then
             echo "Your research has given 0 results, retry"
         fi
-
-    
-
 
 }
