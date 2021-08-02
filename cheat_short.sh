@@ -22,9 +22,9 @@ addshort () {
     read combination
 
     # evaluate if already present
-    condit=$(grep -w "$combination" "$filen" | wc -l)
+    condit=$(awk -v pat="^$combinazione" -F'\t' '$1~pat {print $1}' "$filen")
 
-    if [[ "$condit" -gt 0 ]]; then
+    if [[ "$condit" == "$combinazione" ]]; then
         echo This combination is already present
         return
     fi
