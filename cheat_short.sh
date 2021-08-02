@@ -22,7 +22,7 @@ addshort () {
     read combination
 
     # evaluate if already present
-    condit=$(grep "$combination" "$filen" | wc -l)
+    condit=$(grep -w "$combination" "$filen" | wc -l)
 
     if [[ "$condit" -gt 0 ]]; then
         echo This combination is already present
