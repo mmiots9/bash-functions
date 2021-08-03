@@ -81,7 +81,7 @@ searchshort () {
             # separate each word
                 # cfirst word
                 firstw=$(echo $whatdoes | awk '{print $1}')
-                str2eval="grep \"$firstw\" \"$filen\""
+                str2eval="grep -i \"$firstw\" \"$filen\""
 
                 # evaluate if there are more words and eventually append command
                 nwords=$(echo $whatdoes | wc -w  | xargs)
