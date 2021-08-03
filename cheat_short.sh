@@ -17,31 +17,43 @@ addshort () {
         break
     done
 
-    # ask which command, what it does and what it does in your language
-    echo "Which is the shortcut command?"
-    read combination
+    # while loop to insert values
+    ans="y"
 
-    # evaluate if already present
-    condit=$(awk -v pat="^$combinazione" -F'\t' '$1~pat {print $1}' "$filen")
+    while [[ $ans == 'y' ]]
+    do
 
-    if [[ "$condit" == "$combinazione" ]]; then
-        echo This combination is already present
-        return
-    fi
+        # ask which command, what it does and what it does in your language
+        echo "Which is the shortcut command?"
+        read combination
 
-    # UNCOMMENT these lines if you want to add your own language explanation
-    # echo $whatdoes
-    # read whatdoeslan
+        # evaluate if already present
+        condit=$(awk -v pat="^$combinazione" -F'\t' '$1~pat {print $1}' "$filen")
 
-    echo "what it does?"
-    read whatdoes
+        if [[ "$condit" == "$combinazione" ]]; then
+            echo This combination is already present
+            return
+        fi
 
-    # insert in file
-        # UNCOMMENT this line if you add your own language explanation
-        # echo -e "$combination\t$whatdoeslan\t$whatdoes" >> $filen
+        # UNCOMMENT these lines if you want to add your own language explanation
+        # echo $whatdoes
+        # read whatdoeslan
 
-        # comment this line if tyou have add your own language explanation
-        echo -e "$combination\t$whatdoes" >> $filen
+        echo "what it does?"
+        read whatdoes
+
+        # insert in file
+            # UNCOMMENT this line if you add your own language explanation
+            # echo -e "$combination\t$whatdoeslan\t$whatdoes" >> $filen
+
+            # comment this line if tyou have add your own language explanation
+            echo -e "$combination\t$whatdoes" >> $filen
+    
+        # chiedere se continuare
+        echo "Do you want to continue adding commands? [y/n]"
+        read ans
+
+    done
 }
 
 searchshort () {
