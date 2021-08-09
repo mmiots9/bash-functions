@@ -24,7 +24,7 @@ addshort () {
     do
 
         # ask which command, what it does and what it does in your language
-        echo -e "Which is the shortcut command?\n"
+        echo -e "\nWhich is the shortcut command?"
         read combination
 
         # evaluate if already present
@@ -36,10 +36,10 @@ addshort () {
         fi
 
         # UNCOMMENT these lines if you want to add your own language explanation
-        # echo -e "$whatdoes\n"
+        # echo -e "\n$whatdoes"
         # read whatdoeslan
 
-        echo -e "what it does?\n"
+        echo -e "\nwhat it does?"
         read whatdoes
 
         # insert in file
@@ -73,7 +73,7 @@ searchshort () {
     done
 
     # ask which command
-    echo "Which shortcut are you searching for?"
+    echo -e "\nWhich shortcut are you searching for?"
     read whatdoes
 
     # evaluate searched words
