@@ -7,17 +7,17 @@ cdf (){
 
     if [[ $1 == '.' ]]
     then
-        cd $(find . -name "*$2*" -type d)
+        find . -name "*$2*" -type d -print0 | xargs -0 cd
         return
     fi
 
     if [[ $1 == '~' ]]
     then
-        cd $(find ~ -name "*$2*" -type d)
+        find ~ -name "*$2*" -type d -print0 | xargs -0 cd
         return
     fi
 
-    cd $(find $1* -name "*$2*" -type d)
+    find $1* -name "*$2*" -type d -print0 | xargs -0 cd
 
 }
 
@@ -29,15 +29,15 @@ opf (){
 
     if [[ $1 == '.' ]]
     then
-        open $(find . -name "*$2*" -type f)
+        find . -name "*$2*" -type f -print0 | xargs -0 open
         return
     fi
 
     if [[ $1 == ~ ]]
     then
-        open $(find ~ -name "*$2*" -type f)
+        find ~ -name "*$2*" -type f -print0 | xargs -0 open
         return
     fi
     
-    open $(find *$1* -name "*$2*" -type f)
+    find *$1* -name "*$2*" -type f -print0 | xargs -0 open
 }
