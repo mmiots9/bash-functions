@@ -3,10 +3,10 @@
 addshort () {
 
     # things to set
-    arr=() #insert the name of the file, WITHOUT THE EXTENSION
-    ext='' #set file extension
-    filepath='' #set the path for the directory into which are stored the files
-    whatdoes='' #set the string corresponding to what it does in your language
+    arr=()      # insert the name of the file, WITHOUT THE EXTENSION
+    ext=''      # set file extension
+    filepath='' # set the path for the directory into which are stored the files
+    whatdoes='' # set the string corresponding to what it does in your language
 
     # ask which file
     PS3='Select which file to add into: '
@@ -24,7 +24,7 @@ addshort () {
     do
 
         # ask which command, what it does and what it does in your language
-        echo "Which is the shortcut command?"
+        echo -e "Which is the shortcut command?\n"
         read combination
 
         # evaluate if already present
@@ -36,10 +36,10 @@ addshort () {
         fi
 
         # UNCOMMENT these lines if you want to add your own language explanation
-        # echo $whatdoes
+        # echo -e "$whatdoes\n"
         # read whatdoeslan
 
-        echo "what it does?"
+        echo -e "what it does?\n"
         read whatdoes
 
         # insert in file
@@ -59,10 +59,10 @@ addshort () {
 searchshort () {
 
     # things to set
-    arr=() #insert the name of the file, WITHOUT THE EXTENSION
-    ext='' #set file extension
-    filepath='' #set the path for the directory into which are stored the files
-    whatdoes='' #set the string corresponding to what it does in your language
+    arr=()      # insert the name of the file, WITHOUT THE EXTENSION
+    ext=''      # set file extension
+    filepath='' # set the path for the directory into which are stored the files
+    whatdoes='' # set the string corresponding to what it does in your language
 
     # ask which file
     PS3='Select which file to search into '
