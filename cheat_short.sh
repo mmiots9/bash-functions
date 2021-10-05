@@ -3,10 +3,10 @@
 addshort () {
 
     # things to set
-    arr=() #insert the name of the file, WITHOUT THE EXTENSION
-    ext='' #set file extension
-    filepath='' #set the path for the directory into which are stored the files
-    whatdoes='' #set the string corresponding to what it does in your language
+    arr=()      # insert the name of the file, WITHOUT THE EXTENSION
+    ext=''      # set file extension
+    filepath='' # set the path for the directory into which are stored the files
+    whatdoes='' # set the string corresponding to what it does in your language
 
     # ask which file
     PS3='Select which file to add into: '
@@ -17,40 +17,52 @@ addshort () {
         break
     done
 
-    # ask which command, what it does and what it does in your language
-    echo "Which is the shortcut command?"
-    read combination
+    # while loop to insert values
+    ans="y"
 
-    # evaluate if already present
-    condit=$(grep "$combination" "$filen" | wc -l)
+    while [[ $ans == 'y' ]]
+    do
 
-    if [[ "$condit" -gt 0 ]]; then
-        echo This combination is already present
-        return
-    fi
+        # ask which command, what it does and what it does in your language
+        echo -e "\nWhich is the shortcut command?"
+        read combination
 
-    # UNCOMMENT these lines if you want to add your own language explanation
-    # echo $whatdoes
-    # read whatdoeslan
+        # evaluate if already present
+        condit=$(awk -v pat="^$combinazione" -F'\t' '$1~pat {print $1}' "$filen")
 
-    echo "what it does?"
-    read whatdoes
+        if [[ "$condit" == "$combinazione" ]]; then
+            echo This combination is already present
+            return
+        fi
 
-    # insert in file
-        # UNCOMMENT this line if you add your own language explanation
-        # echo -e "$combination\t$whatdoeslan\t$whatdoes" >> $filen
+        # UNCOMMENT these lines if you want to add your own language explanation
+        # echo -e "\n$whatdoes"
+        # read whatdoeslan
 
-        # comment this line if tyou have add your own language explanation
-        echo -e "$combination\t$whatdoes" >> $filen
+        echo -e "\nwhat it does?"
+        read whatdoes
+
+        # insert in file
+            # UNCOMMENT this line if you add your own language explanation
+            # echo -e "$combination\t$whatdoeslan\t$whatdoes" >> $filen
+
+            # comment this line if tyou have add your own language explanation
+            echo -e "$combination\t$whatdoes" >> $filen
+    
+        # chiedere se continuare
+        echo "Do you want to continue adding commands? [y/n]"
+        read ans
+
+    done
 }
 
 searchshort () {
 
     # things to set
-    arr=() #insert the name of the file, WITHOUT THE EXTENSION
-    ext='' #set file extension
-    filepath='' #set the path for the directory into which are stored the files
-    whatdoes='' #set the string corresponding to what it does in your language
+    arr=()      # insert the name of the file, WITHOUT THE EXTENSION
+    ext=''      # set file extension
+    filepath='' # set the path for the directory into which are stored the files
+    whatdoes='' # set the string corresponding to what it does in your language
 
     # ask which file
     PS3='Select which file to search into '
@@ -61,7 +73,7 @@ searchshort () {
     done
 
     # ask which command
-    echo "Which shortcut are you searching for?"
+    echo -e "\nWhich shortcut are you searching for?"
     read whatdoes
 
     # evaluate searched words
@@ -69,7 +81,7 @@ searchshort () {
             # separate each word
                 # cfirst word
                 firstw=$(echo $whatdoes | awk '{print $1}')
-                str2eval="grep \"$firstw\" \"$filen\""
+                str2eval="grep -i \"$firstw\" \"$filen\""
 
                 # evaluate if there are more words and eventually append command
                 nwords=$(echo $whatdoes | wc -w  | xargs)
