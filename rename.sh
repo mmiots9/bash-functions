@@ -2,7 +2,7 @@
 
 renameDir() {
 
-mv $1 $(echo $1 | awk 'BEGIN {FS="[ -]"; OFS="_"} {\
+mv $1 $(echo $1 | awk 'BEGIN {FS="[ _-]"; OFS="_"} {\
 for(i=1; i<NF; ++i) {
 $i = toupper( substr( $i, 1, 1 ) ) substr( $i, 2 ) 
 printf "%s_", $i}; 
