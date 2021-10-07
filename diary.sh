@@ -19,6 +19,8 @@ ldsf=$(history | grep diarystart | tail -1 | awk '{print $3}')
 # print from that line to the end
 history | awk -F " " -v line=$ldsn '{if($1 > line) print}' | awk '{$1=""; print}' > $ldsf
 
+# final message
+echo "Diary saved in $ldsf"
 }
 
 
