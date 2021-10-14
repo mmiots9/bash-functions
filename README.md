@@ -7,7 +7,7 @@ If you have any suggestions, please don't exitate to contact me.
 To install these functions, I strongly reccomend to download the entire folder and add this to your .bash_profile or .zshrc:
 
 ```
-for file in ~/path-to-folder/*;  source $file done
+for file in ~/path-to-folder/*.sh  source $file done
 ```
 
 <h3>cheat_short.sh</h3>
