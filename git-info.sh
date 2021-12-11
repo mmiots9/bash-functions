@@ -59,6 +59,33 @@ rm temp-git-info.txt
 
 }
 
+topush (){
+
+curd=$(pwd)
+
+dirns=$(find ~ -iname .git | grep - v | awk -F'/.git$' '{print $1}') # add as many | grep -v name | as ypu need to not see unwanted repo where the first grep is. NOT after awk! I suggest "Trash" and "library" on mac
+echo $dirns > temp-pull.txt
+
+nlines=$(cat temp-pull.txt | wc -l | xargs)
+
+for i in {1..$nlines}
+do
+    echo $i
+    dirn=$(echo $(head -n $i temp-pull.txt | tail -n 1))
+    cd $dirn
+
+    repon=$(echo $dirn | awk -F'/' '{print $NF}')
+    echo $repon
+    
+    nbranch=$(git branch | wc -l | xargs)
+        git status -bs --ahead-behind
+    cd $curd
+done
+
+
+rm temp-pull.txt 
+
+}
 
 
 
